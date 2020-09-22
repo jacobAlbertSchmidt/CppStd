@@ -4,8 +4,9 @@
 #include "TypeUtil.h"
 template<typename T>
 concept Error = requires(T thing) {
-        {thing.Msg()} -> IsSame<Span<const char>>();
-        
-}
+        {thing.Msg()} -> IsSame<Span<const char>>)();
+
+};
+
 
 #endif

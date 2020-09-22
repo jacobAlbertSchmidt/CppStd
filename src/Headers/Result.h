@@ -18,8 +18,8 @@ public:
         T &Value() {return thing;}
 };
 #include "Assert.h"
-
-template<typename T, typename E>
+#include "Error.h"
+template<typename T, Error E>
 class Result {
 private:
         union {
@@ -31,11 +31,11 @@ public:
         Result(Ok<T> ok) : thing(ok), ok(true) {}
         Result(Err<E> err) : err(err), ok(false) {}
         T &Check() {
-                Assert(ok);
+                Assert(ok, err.Msg());
                 return thing;
         }
         E &Err() {
-                Assert(!ok);
+                Assert(!ok, err.Msg());
                 return err;
         }
 
@@ -44,7 +44,7 @@ public:
 
 struct Empty {}; //empty struct, sizeof(Empty) == 1
 
-template<typename E>
+template<Error E>
 class Result<void, E> {
 private:
         union {
@@ -56,10 +56,10 @@ public:
         Result(Ok<T> ok) : empty(), ok(true) {}
         Result(Err<E> err) : err(err), ok(false) {}
         void Check() {
-                Assert(ok);
+                Assert(ok, err.Msg());
         }
         E &Err() {
-                Assert(!ok);
+                Assert(!ok, err.Msg());
                 return err;
         }
 

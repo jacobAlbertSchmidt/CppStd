@@ -13,8 +13,25 @@ public:
         T *Data() {return data;}
         int Size() const {return size;}
         T &operator[](int n);
-        T Set(int idx, T thing);
-        T At(int idx) const;
+        // T Set(int idx, T thing);
+        // T At(int idx) const;
+};
+
+template<typename T>
+class Span<const T> {
+private:
+        const T *data;
+        int size;
+public:
+        Span(const T *data, int size) : data(data), size(size) {}
+        Span(const Span<const T>& other) = default;
+        Span(Span<const T>&& other) = default;
+        Span<const T> &operator=(const Span<const T>& other) = default;
+        const T *Data() const {return data;}
+        int Size() const {return size;}
+        const T &operator[](int n) const;
+        // T Set(int idx, T thing);
+        // T At(int idx) const;
 };
 
 template<>
@@ -30,8 +47,8 @@ public:
         char *Data() {return data;}
         int Size() const {return size;}
         char &operator[](int n);
-        char Set(int idx, char thing);
-        char At(int idx) const;
+        // char Set(int idx, char thing);
+        // char At(int idx) const;
 };
 
 template<>
@@ -47,16 +64,28 @@ public:
         const char *Data() {return data;}
         int Size() const {return size;}
         const char &operator[](int n);
-        const char Set(int idx, const char thing) const;
-        const char At(int idx) const;
+        // const char Set(int idx, const char thing) const;
+        // const char At(int idx) const;
 };
+#include<stddef.h>
 
+
+Span<const char> operator""_s(const char *data, size_t size) {
+        return Span<const char>(data, size);
+}
 
 #include "Panic.h"
 #include "Assert.h"
 template<typename T>
 T &Span<T>::operator[](int n) {
-        Assert(((unsigned) n) < size, "Error: idx out of range in Span");
+        Assert(((unsigned) n) < size, "Error: idx out of range in Span"_s);
+        return data[n];
+}
+
+template<typename T>
+const T &Span<const T>::operator[](int n) const {
+        Assert(((unsigned) n) < size, "Error: idx out of range in Span"_s);
+        return data[n];
 }
 // template<typename T>
         // T Set(int idx, T thing);
