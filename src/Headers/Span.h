@@ -6,6 +6,7 @@ private:
         T *data;
         int size;
 public:
+        Span() = delete;
         Span(T *data, int size) : data(data), size(size) {}
         Span(const Span<T>& other) = default;
         Span(Span<T>&& other) = default;
@@ -23,6 +24,7 @@ private:
         const T *data;
         int size;
 public:
+        Span() = delete;
         Span(const T *data, int size) : data(data), size(size) {}
         Span(const Span<const T>& other) = default;
         Span(Span<const T>&& other) = default;
@@ -40,6 +42,7 @@ private:
         char *data;
         int size;
 public:
+        Span() = delete;
         Span(char *data, int size) : data(data), size(size) {}
         Span(const Span<char>& other) = default;
         Span(Span<char>&& other) = default;
@@ -57,6 +60,7 @@ private:
         const char *data;
         int size;
 public:
+        Span() = delete;
         Span(const char *data, int size) : data(data), size(size) {}
         Span(const Span<const char>& other) = default;
         Span(Span<const char>&& other) = default;

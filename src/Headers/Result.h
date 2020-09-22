@@ -10,6 +10,13 @@ public:
         T &Value() {return thing;}
 };
 
+template<>
+class Ok<void> {
+public:
+        Ok() {}
+        void Value() {}
+};
+
 template<typename T>
 class Err {
         T thing;
@@ -28,18 +35,18 @@ private:
         };
         bool ok;
 public:
-        Result(Ok<T> ok) : thing(ok), ok(true) {}
-        Result(Err<E> err) : err(err), ok(false) {}
+        Result(Ok<T> ok) : thing(ok.Value()), ok(true) {}
+        Result(Err<E> err) : err(err.Value()), ok(false) {}
         T &Check() {
                 Assert(ok, err.Msg());
                 return thing;
         }
-        E &Err() {
+        E &Error() {
                 Assert(!ok, err.Msg());
                 return err;
         }
 
-        bool Ok() const {return ok;}
+        bool IsOk() const {return ok;}
 };
 
 struct Empty {}; //empty struct, sizeof(Empty) == 1
@@ -53,17 +60,17 @@ private:
         };
         bool ok;
 public:
-        Result(Ok<T> ok) : empty(), ok(true) {}
-        Result(Err<E> err) : err(err), ok(false) {}
+        Result(Ok<void> ok) : empty(), ok(true) {}
+        Result(Err<E> err) : err(err.Value()), ok(false) {}
         void Check() {
                 Assert(ok, err.Msg());
         }
-        E &Err() {
+        E &Error() {
                 Assert(!ok, err.Msg());
                 return err;
         }
 
-        bool Ok() const {return ok;}
+        bool IsOk() const {return ok;}
 };
 
 
