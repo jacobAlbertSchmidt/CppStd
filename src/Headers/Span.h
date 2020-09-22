@@ -1,6 +1,5 @@
 #ifndef SPAN_H
 #define SPAN_H
-
 template<typename T>
 class Span {
 private:
@@ -54,12 +53,12 @@ public:
 
 
 #include "Panic.h"
-
+#include "Assert.h"
 template<typename T>
 T &Span<T>::operator[](int n) {
-        
+        Assert(((unsigned) n) < size, "Error: idx out of range in Span");
 }
-
+// template<typename T>
         // T Set(int idx, T thing);
         // T At(int idx) const;
 
