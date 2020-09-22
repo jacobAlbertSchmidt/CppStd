@@ -55,6 +55,12 @@ public:
 
 #include "Panic.h"
 
+template<typename T>
+T &Span<T>::operator[](int n) {
+        
+}
 
+        // T Set(int idx, T thing);
+        // T At(int idx) const;
 
 #endif
