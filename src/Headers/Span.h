@@ -14,8 +14,8 @@ public:
         T *Data() {return data;}
         int Size() const {return size;}
         T &operator[](int n);
-        T *begin() {return arr;}
-        T *end() {return arr + size;}
+        T *begin() {return data;}
+        T *end() {return data + size;}
         // T Set(int idx, T thing);
         // T At(int idx) const;
 };
@@ -34,8 +34,8 @@ public:
         const T *Data() const {return data;}
         int Size() const {return size;}
         const T &operator[](int n) const;
-        T *begin() {return arr;}
-        T *end() {return arr + size;}
+        const T *begin() const {return data;}
+        const T *end() const {return data + size;}
         // T Set(int idx, T thing);
         // T At(int idx) const;
 };
@@ -54,8 +54,8 @@ public:
         char *Data() {return data;}
         int Size() const {return size;}
         char &operator[](int n);
-        T *begin() {return arr;}
-        T *end() {return arr + size;}
+        char *begin() {return data;}
+        char *end() {return data + size;}
         // char Set(int idx, char thing);
         // char At(int idx) const;
 };
@@ -74,8 +74,8 @@ public:
         const char *Data() {return data;}
         int Size() const {return size;}
         const char &operator[](int n);
-        T *begin() {return arr;}
-        T *end() {return arr + size;}
+        const char *begin() const {return data;}
+        const char *end() const {return data + size;}
         // const char Set(int idx, const char thing) const;
         // const char At(int idx) const;
 };
