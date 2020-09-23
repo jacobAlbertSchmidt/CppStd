@@ -9,5 +9,11 @@ concept Error = requires(T thing) {
         {thing.Msg()} -> SameAs<const Span<const char>>;
 };
 
+// class GenericError {
+// private:
+
+// public:
+
+// };
 
 #endif
